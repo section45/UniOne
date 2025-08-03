@@ -26,16 +26,18 @@ app.use(cors({
 app.use(express.json());
 
 // ✅ MySQL Database pool
-const pool = mysql.createPool({
-  host: 'maglev.proxy.rlwy.net',
-  user: 'root',
-  password: 'pHArlPSAqtXZldJMbmPbiOhFMArVtVRC',
-  database: 'railway',
-  port: 20373,
+const dbConfig = {
+  host: process.env.DB_HOST || 'maglev.proxy.rlwy.net',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || 'pHArlPSAqtXZldJMbmPbiOhFMArVtVRC',
+  database: process.env.DB_NAME || 'railway',
+  port: process.env.DB_PORT || 20373,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
-});
+};
+
+const pool = mysql.createPool(dbConfig);
 
 
 // Initialize database and create tables
