@@ -38,11 +38,6 @@ const pool = mysql.createPool({
 });
 
 
-// Create connection pool
-
-const pool = mysql.createPool(dbConfig);
-
-
 // Initialize database and create tables
 async function initializeDatabase() {
   try {
