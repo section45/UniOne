@@ -113,25 +113,33 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+const handleEmailLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    try {
-      const response = await authAPI.login({
-        email: formData.email,
-        password: formData.password,
-        role: userType,
-      });
+  try {
+    const response = await authAPI.login({
+      email: formData.email,
+      password: formData.password,
+      role: userType,
+    });
 
-      login(response.data.token, response.data.user);
-      toast.success('Login successful!');
-    } catch (error: any) {
-      toast.error(error.response?.data?.error || 'Login failed');
-    } finally {
-      setIsLoading(false);
+    login(response.data.token, response.data.user);
+    toast.success('Login successful!');
+
+    // 🔽 Redirect here
+    if (response.data.user.role === 'teacher') {
+      window.location.href = '/TeacherDashboard.tsx';
+    } else if (response.data.user.role === 'parent') {
+      window.location.href = '/ParentDashboard.tsx';
     }
-  };
+  } catch (error: any) {
+    toast.error(error.response?.data?.error || 'Login failed');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleMobileLogin = async (e: React.FormEvent) => {
     e.preventDefault();
