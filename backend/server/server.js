@@ -20,7 +20,12 @@ const PORT = process.env.PORT || 3001;
 const JWT_SECRET = 'your-super-secret-jwt-key-change-in-production';
 
 // Middleware
-app.use(cors());
+
+app.use(cors({
+  origin: 'https://unione-frontend-lkcw.onrender.com', // or '*' for testing only
+  credentials: true // if using cookies or auth headers
+}));
+
 app.use(express.json());
 
 // MySQL Database configuration
