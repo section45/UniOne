@@ -20,10 +20,9 @@ const PORT = process.env.PORT || 3001;
 const JWT_SECRET = 'your-super-secret-jwt-key-change-in-production';
 
 // Middleware
-
 app.use(cors({
-  origin: 'https://unione-frontend-lkcw.onrender.com', // or '*' for testing only
-  credentials: true // if using cookies or auth headers
+  origin: 'https://unione-frontend-lkcw.onrender.com',
+  credentials: true
 }));
 
 app.use(express.json());
@@ -34,10 +33,8 @@ const dbConfig = {
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'Consult!1234',
   database: process.env.DB_NAME || 'school_management',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
 };
+
 
 // Create connection pool
 
