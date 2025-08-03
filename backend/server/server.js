@@ -28,12 +28,13 @@ app.use(cors({
 app.use(express.json());
 
 // MySQL Database configuration
-const dbConfig = {
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'Consult!1234',
-  database: process.env.DB_NAME || 'school_management',
-};
+const db = mysql.createConnection({
+  host: 'maglev.proxy.rlwy.net',
+  user: 'root',
+  password: 'pHArlPSAqtXZldJMbmPbiOhFMArVtVRC',
+  database: 'railway',
+  port: 20373,
+});
 
 
 // Create connection pool
