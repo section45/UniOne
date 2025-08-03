@@ -1,11 +1,4 @@
 require('dotenv').config();
-console.log("=== MySQL Database Configuration ===");
-console.log("Host:", process.env.DB_HOST);
-console.log("Database:", process.env.DB_NAME);
-console.log("User:", process.env.DB_USER);
-console.log("Make sure MySQL server is running and accessible");
-console.log("=====================================");
-
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
@@ -13,27 +6,35 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 
-
-
 const app = express();
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = 'your-super-secret-jwt-key-change-in-production';
+
+// Show DB config at startup
+console.log("=== MySQL Database Configuration ===");
+console.log("Host:", process.env.DB_HOST || 'maglev.proxy.rlwy.net');
+console.log("Database:", process.env.DB_NAME || 'railway');
+console.log("User:", process.env.DB_USER || 'root');
+console.log("Make sure MySQL server is running and accessible");
+console.log("=====================================");
 
 // Middleware
 app.use(cors({
   origin: 'https://unione-frontend-lkcw.onrender.com',
   credentials: true
 }));
-
 app.use(express.json());
 
-// MySQL Database configuration
-const db = mysql.createConnection({
+// ✅ MySQL Database pool
+const pool = mysql.createPool({
   host: 'maglev.proxy.rlwy.net',
   user: 'root',
   password: 'pHArlPSAqtXZldJMbmPbiOhFMArVtVRC',
   database: 'railway',
   port: 20373,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 
